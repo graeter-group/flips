@@ -1,0 +1,34 @@
+module: models.gafl.flow_model.FlowModel
+node_embed_size: 240
+edge_embed_size: 120
+symmetric: False
+node_features:
+  c_s: ${model.node_embed_size}
+  c_pos_emb: 120
+  c_timestep_emb: 120
+  embed_diffuse_mask: False
+  max_num_res: 2000
+  timestep_int: 1000
+  total_length_emb_dim: 0
+  total_flex_emb_dim: 8
+edge_features:
+  single_bias_transition_n: 2
+  c_s: ${model.node_embed_size}
+  c_p: ${model.edge_embed_size}
+  relpos_k: 64
+  use_rbf: True
+  num_rbf: 32
+  feat_dim: 64
+  num_bins: 22
+  self_condition: True
+gfa:
+  c_s: ${model.node_embed_size}
+  c_z: ${model.edge_embed_size}
+  c_hidden: 120
+  no_heads: 8
+  no_qk_points: 8
+  no_v_points: 8
+  seq_tfmr_num_heads: 4
+  seq_tfmr_num_layers: 2
+  num_blocks: 6
+  readout_c_hidden: 32

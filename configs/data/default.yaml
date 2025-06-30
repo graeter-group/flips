@@ -1,0 +1,35 @@
+dataset:
+  seed: 123
+  max_num_res: 512
+  cache_num_res: 0
+  min_num_res: 60
+  subset: null
+  generate_valid_samples: True
+  samples_per_eval_length: 10
+  num_eval_lengths: 8
+  min_eval_length: 300
+  train_valid_test_split: [1.0, 0.0, 0.0]
+  csv_path: null
+  cluster_path_framediff: null
+  filter_breaks: True
+  scrmsd_csv_path: null
+  filter_scrmsd: inf
+  flexibility: True
+  calc_dssp: True
+  max_coil_pct: 1.
+  allowed_oligomer: [monomeric]
+  target_sec_content:
+    helix_percent: 0.39
+    strand_percent: 0.21
+  apply_clustering: False
+  extra_features:
+    - local_flex
+
+loader:
+  num_workers: 4
+  prefetch_factor: 10
+
+sampler:
+  max_batch_size: 100
+  max_num_res_squared: 500_000
+  clustered: ${data.dataset.apply_clustering}

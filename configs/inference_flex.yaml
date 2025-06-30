@@ -1,0 +1,80 @@
+# Configuration for inference on FliPS experiments in a multi-length setting.
+
+defaults:
+  - _self_
+
+hydra:
+  run:
+    dir: outputs/hydra/
+
+inference:
+  run_self_consistency: False
+  esmfold_device: cuda # "cpu" or "cuda"
+  calc_non_coil_rmsd: False
+  write_trajectory: False # whether to write the trajectory of the inference run
+
+  # Use this to write with date-time stamp.
+  name: run_${now:%Y-%m-%d}_${now:%H-%M-%S-%f}
+  seed: 123
+  ckpt_path: ./ckpt/paper_weights/flips_final.ckpt
+  output_dir: outputs/flex_inference/
+
+  # Directory of software, weights, and outputs.
+  pt_hub_dir: ./.cache/torch/
+  pmpnn_dir: ./../ProteinMPNN/
+  pmpnn_weights: vanilla # vanilla or soluble pMPNN weights
+
+  use_gpu: True
+  num_gpus: 1
+  max_res_per_esm_batch: 5000
+
+  flexibility:
+    pass_flex_condition: True # whether to pass the flex condition at all (for ablation)
+    backflip_screening: True # whether to use the backflip screening. If backflip_screening is applied, then self-consistency is carried out only for num_top_samples.
+    flex_profile: ./flex_profiles/example_profile_small.txt
+    # sampled length range
+    min_length: 128
+    max_length: 128
+    length_step: 1
+    # Number of backbone samples
+    num_samples: 50
+    # Number of samples with top flex correlation that are re-folded
+    num_top_samples: 10
+    # Batch size for sampling. For bigger proteins, batch_size 30 is recommended.
+    batch_size: 50
+    correlation_weight: 1. # weight for scoring the sampled flex profiles
+    mae_weight: 2. # weight for scoring the sampled flex profiles
+
+  interpolant:
+    min_t: 1e-2
+    rots:
+      corrupt: True
+      sample_schedule: exp
+      exp_rate: 10
+    trans:
+      corrupt: True
+      sample_schedule: linear
+    sampling:
+      num_timesteps: 200
+    self_condition: True
+    noise_res_scaling_power: 0.0
+    noise_scale: 1.
+
+    # Classifier-free guidance settings.
+    classifier_free_guidance:
+      # Available options: [0, 1] for now. Enabled by default.
+      cfg_scale: 1.0
+
+    # Classifier guidance settings. 
+    # classifier_guidance_scale != 0 means classifier guidance is enabled.
+    classifier_guidance:
+      # Disabled by default.
+      cg_scale: 0.0
+      cg_schedule: static
+        # if length_scaling is True, the cg_scale is set to 5.0 and scaled by the length of the protein (benchmarked on length 128)
+      length_scaling: True
+
+  samples:
+    # Number of ESMFfold samples per backbone sample.
+    seq_per_sample: 8
+    overwrite: False

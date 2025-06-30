@@ -1,0 +1,14 @@
+min_t: 1e-2
+t_interval: [0.0, 1.0] # Determines the range of t values to sample from during training
+rots:
+  train_schedule: linear
+  sample_schedule: exp
+  exp_rate: 10
+trans:
+  train_schedule: linear
+  sample_schedule: linear
+sampling:
+  num_timesteps: 100
+self_condition: ${model.edge_features.self_condition}
+noise_res_scaling_power: 0.0
+noise_scale: 1.

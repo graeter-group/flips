@@ -1,0 +1,94 @@
+debug: False
+use_wandb: False
+use_tqdm: False
+
+seed: 123
+num_devices: 1
+warm_start: null
+warm_start_cfg_override: True
+reset_optimizer_on_load: True
+use_swa: False
+# change as needed. Note that one epoch on PDB dataset is way longer than on SCOPe!
+first_val_epoch: 6900
+
+batch_ot:
+  enabled: True
+  cost: kabsch
+  noise_per_sample: 1
+
+training:
+  min_plddt_mask: null
+  loss: se3_vf_loss
+  bb_atom_scale: 0.1
+  trans_scale: 0.1
+  translation_loss_weight: 2.0
+  t_normalize_clip: 0.9
+  rotation_loss_weights: 1.0
+  aux_loss_weight: 1.0
+  aux_loss_t_pass: 0.75
+  t_bins: 5
+
+wandb:
+  name: flips_training
+  project: flips
+  save_dir: outputs/
+  tags: []
+
+optimizer:
+  lr: 0.0001
+
+warmup_lr: False
+warmup_lr_factor: 0.01
+
+trainer:
+  overfit_batches: 0
+  min_epochs: 1
+  # adjust as needed.
+  max_epochs: 9999999
+  accelerator: gpu
+  log_every_n_steps: 1
+  deterministic: False
+  strategy: ddp
+  check_val_every_n_epoch: 5
+  default_root_dir: outputs/
+  accumulate_grad_batches: 1
+
+checkpointer:
+  dirpath: outputs/ckpt/${experiment.wandb.project}/${experiment.wandb.name}/${now:%Y-%m-%d}_${now:%H-%M-%S}
+  save_last: True
+  filename: "epoch:{epoch:03d}"
+  every_n_epochs: 1
+  save_top_k: -1
+  auto_insert_metric_name: False
+
+checkpointer2:
+  dirpath: outputs/ckpt/${experiment.wandb.project}/${experiment.wandb.name}/${now:%Y-%m-%d}_${now:%H-%M-%S}
+  save_last: False
+  filename: "sec_dev:{sec_deviation:.2f}-epoch:{epoch:03d}"
+  save_top_k: 15
+  monitor: valid/sec_deviation
+  mode: min
+  every_n_epochs: ${experiment.trainer.check_val_every_n_epoch}
+  first_epoch: ${experiment.first_val_epoch}
+  auto_insert_metric_name: False
+
+flexibility:
+  flag: True
+  mask_prob: [0.1, 0.0, 0.9]
+  max_window_size: 0.4
+  min_window_size: 0.2
+  output_dir: outputs/flex_inference/
+  aux_loss_weight: 100.
+  aux_loss_min_time: 0
+
+profiler:
+  enabled: False
+  modules: null
+  profile:
+    use_cuda: True
+    with_stack: False
+  stats:
+    group_by_stack_n: 0
+    group_by_input_shapes: False
+    prefixes: ['layer_0::', 'layer_1::']
+    sort_by: 'cpu_time_total'

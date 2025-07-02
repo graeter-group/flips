@@ -95,11 +95,11 @@ FliPS loads model and inference configuration from a .yaml config. This config c
   Number of top-samples (w.r.t. flex profile) to select for sequence design and folding. Has no effect if run_self_consistency is set to `False`.
 
 - **`pass_flex_condition`**:
-  Whether to pass flexibility profile to the model as a condition (can be used for ablating vs unconditonal generation).
+  Whether to pass flexibility profile to the model as a condition (can be used for ablating vs unconditonal generation), equivalent to turning off both BackFlip guidance and classifier free guidance.
 
 #### Unconditional generation
 
-To perform unconditional generation, in the inference config config set `cfg_scale: 0.0` for `classifier_free_guidance`.
+To perform unconditional generation, in the inference config config set `cfg_scale: 0.0`, turning off `classifier_free_guidance`.
 
 ### BackFlip Guidance (BG)
 

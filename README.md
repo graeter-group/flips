@@ -10,6 +10,41 @@ This repository relies on the [GAFL](https://github.com/hits-mli/gafl) package a
 
 ---
 
+<details open><summary><b>Table of contents</b></summary>
+  
+- [Quickstart](#quickstart)
+- [Colab Tutorial](#google-colab-tutorial)
+- [Inference](#inference)
+- [Installation](#installation)
+- [Datasets](#datasets)
+- [Training](#training)
+- [Citation](#citation)
+</details>
+
+## Quickstart
+
+You can use our installation script (here for torch version 2.6.0 and cuda 12.4), which essentially executes the steps specified in the section **pip** below:
+
+```bash
+git clone https://github.com/graeter-group/flips.git
+git clone https://github.com/graeter-group/backflip.git
+conda create -n flips python=3.10 pip=23.2.1 -y
+conda activate flips && bash flips/install_utils/install_via_pip.sh 2.6.0 124
+```
+
+Verify your installation by downloading the model weights and running our example script:
+
+```bash
+wget --content-disposition https://keeper.mpdl.mpg.de/f/236758d218a748fe93cd/?dl=1 -P ckpt/paper_weights
+bash flips/scripts/inference_example.sh
+```
+
+For more details and alternative installation methods, please take a look at the [Installation](#installation) section.
+
+## Google Colab Tutorial
+
+We provide a [Google Colab notebook with a tutorial for generating flexibility-conditioned protein structures](https://colab.research.google.com/drive/1Pc3xwgI6PO975b04NLuJhuEUWkg860V_?usp=sharing), for which no local installation is required. We also show how to apply BackFlip-screening and the refolding pipeline with ProteinMPNN and ESMFold.
+
 ## Inference
 
 ### Generating protein structures
@@ -68,7 +103,7 @@ To perform unconditional generation, in the inference config config set `cfg_sca
 
 ### BackFlip Guidance (BG)
 
-Alternative to the conditional model, we implemented a BackFlip guidance (BG) strategy. BG approximates conditional flow by guiding the unconditional model with predictions made by BackFlip. BG can be switched on by setting `cg_scale != 0` in the inference config. It yields worse results than sampling with the conditional model but can be used also with other generative models without requiring retraining. For more details we refer to the paper. Inference examples with BG can be found in a notebook ..TODO..
+Alternative to the conditional model, we implemented a BackFlip guidance (BG) strategy. BG approximates conditional flow by guiding the unconditional model with predictions made by BackFlip. BG can be switched on by setting `cg_scale != 0` in the inference config. It yields worse results than sampling with the conditional model but can be used also with other generative models without requiring retraining. For more details we refer to the paper.
 
 ### Self-consistency with ProteinMPNN and ESMfold
 
@@ -110,32 +145,13 @@ If Foldseek is installed (see [FoldSeek](https://github.com/steineggerlab/foldse
 --compute_novelty --dataset_foldseek <path>
 ```
 
-### Examples of executions and config customization
-
-We also provide an [example notebook in Google Colab](TODO), for which no local installation is required.
-
 ---
 
 ## Installation
 
-## Installation script
+For convenience, you can use the installation script as explained in the [Quickstart](#quickstart) section. It essentially executes the pip installation described below. If it fails, we recommend to follow the steps below and debug where needed.
 
-You can use our installation script (here for torch version 2.6.0 and cuda 12.4), which esssentially executes the steps specified in the section **pip** below:
-
-```bash
-git clone https://github.com/graeter-group/flips.git
-git clone https://github.com/graeter-group/backflip.git
-conda create -n flips python=3.10 pip=23.2.1 -y
-conda activate flips && bash flips/install_utils/install_via_pip.sh 2.6.0 124
-```
-
-Verify your installation by running our example script:
-
-```bash
-bash flips/scripts/inference_example.sh
-```
-
-## pip
+### pip
 
 Optional: Create a virtual environment, e.g. with conda and install pip23.2.1:
 
@@ -173,7 +189,7 @@ pip install torch-scatter -f https://data.pyg.org/whl/torch-2.6.0+cu124.html
 
 where you can replace cu124 by your cuda version, e.g. cu118 or cu121.
 
-## conda
+### conda
 
 FliPS relies on the [GAFL](https://github.com/hits-mli/gafl) package, which can be installed from GitHub as shown below. The dependencies besides GAFL are listed in `install_utils/environment.yaml`, we also provide a minimal environment in `install_utils/minimal_env.yaml`, where it is easier to change torch/cuda versions.
 

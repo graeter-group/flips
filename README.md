@@ -47,6 +47,15 @@ We provide a [Google Colab notebook with a tutorial for generating flexibility-c
 
 ## Inference
 
+<div align="center">
+  <img src="assets/flips-results-compressed.png" width="70%"/>
+  <p style="width: 80%; font-size: 12px; text-align: center; margin: auto;">
+    <em>
+      FliPS generates protein structures whose MD-derived flexibility resemble a given target profile provided by the user. 
+    </em>
+  </p>
+</div>
+
 ### Generating protein structures
 
 To generate protein structures conditioned on an input flexibility profile, first follow the installation procedure as described below. 

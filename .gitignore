@@ -9,7 +9,7 @@ wandb*.json
 **.txt
 **.csv
 # ignore ckpt but not yamls
-ckpt/**/*.ckpt
+ckpt/**/*.ckpt*
 !ckpt/**/*.yaml
 !ckpt/*.yaml
 *.code-workspace

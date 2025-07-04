@@ -43,7 +43,7 @@ For more details and alternative installation methods, please take a look at the
 
 ## Google Colab Tutorial
 
-We provide a [Google Colab notebook with a tutorial for generating flexibility-conditioned protein structures](https://colab.research.google.com/drive/1Pc3xwgI6PO975b04NLuJhuEUWkg860V_?usp=sharing), for which no local installation is required. We also show how to apply BackFlip-screening and the refolding pipeline with ProteinMPNN and ESMFold.
+We provide a [Google Colab notebook with a tutorial for generating flexibility-conditioned protein structures](https://colab.research.google.com/drive/1Pc3xwgI6PO975b04NLuJhuEUWkg860V_?usp=sharing), for which no local installation is required.
 
 ## Inference
 

@@ -23,7 +23,7 @@ This repository relies on the [GAFL](https://github.com/hits-mli/gafl) package a
 
 ## Quickstart
 
-You can use our installation script (here for torch version 2.6.0 and cuda 12.4), which essentially executes the steps specified in the section **pip** below:
+You can use our installation script (here for torch version 2.6.0 and cuda 12.4), which essentially executes the steps specified in the section [pip installation](#installation):
 
 ```bash
 git clone https://github.com/graeter-group/flips.git

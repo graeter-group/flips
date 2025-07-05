@@ -120,7 +120,7 @@ class Experiment:
             ckpt_path=self._exp_cfg.warm_start
         )
 
-@hydra.main(version_base=None, config_path="../configs", config_name="train_se3_flex_conditioned.yaml")
+@hydra.main(version_base=None, config_path="../configs", config_name="train.yaml")
 def main(cfg: DictConfig):
     
     # Enable profiling for specified python modules

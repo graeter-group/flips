@@ -4,7 +4,7 @@
 
 ## Description
 
-**FliPS** is a generative model for designing proteins with given per-residue flexibility described in the paper [Flexibility-conditioned protein structure design with flow matching](https://openreview.net/forum?id=890gHX7ieS).
+**FliPS** is a generative model for designing proteins with given per-residue flexibility described in the paper [Flexibility-conditioned protein structure design with flow matching](https://openreview.net/forum?id=890gHX7ieS). The flexibility prediction model **BackFlip**, also described in that paper, is available [here](https://github.com/graeter-group/backflip).
 
 This repository relies on the [GAFL](https://github.com/hits-mli/gafl) package and code from [FrameFlow](https://github.com/microsoft/protein-frame-flow).
 

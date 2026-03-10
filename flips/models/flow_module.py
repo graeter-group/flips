@@ -253,8 +253,8 @@ class FlowModule(LightningModule):
                 noisy_batch['t'] = torch.ones_like(noisy_batch['t'])
 
                 backflip_input = {
-                'trans_1': noisy_batch['trans_t'],
-                'rotmats_1': noisy_batch['rotmats_t'],
+                'trans_1': pred_trans_1,
+                'rotmats_1': pred_rotmats_1,
                 'res_idx': torch.arange(num_res, device=self._device).unsqueeze(0).expand(num_batch, -1),
                 'res_mask': noisy_batch['res_mask'],
                 }

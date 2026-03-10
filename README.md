@@ -280,4 +280,12 @@ url={https://openreview.net/forum?id=890gHX7ieS}
 }
 ```
 
-The code relies on the [GAFL](https://github.com/hits-mli/gafl) package and code from [FrameFlow](https://github.com/microsoft/protein-frame-flow). It would be appreciated if you also cite the two respective papers if you use the code.
+The code relies on the [GAFL](https://github.com/hits-mli/gafl) package and code from [FrameFlow](https://github.com/microsoft/protein-frame-flow). It would be appreciated if you also cite the two respective papers if you use the code:
+```
+@inproceedings{wagnerseute2024gafl,
+  title={Generating Highly Designable Proteins with Geometric Algebra Flow Matching},
+  author={Wagner, Simon and Seute, Leif and Viliuga, Vsevolod and Wolf, Nicolas and Gr{\"a}ter, Frauke and St{\"u}hmer, Jan},
+  booktitle={Thirty-eighth Conference on Neural Information Processing Systems},
+  year={2024}
+}
+```
